@@ -1,6 +1,7 @@
 package com.caldroidsample;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -107,6 +108,8 @@ public class CaldroidSampleActivity extends AppCompatActivity {
             public void onSelectDate(Date date, View view) {
                 Toast.makeText(getApplicationContext(), formatter.format(date),
                         Toast.LENGTH_SHORT).show();
+                Intent it = new Intent(CaldroidSampleActivity.this,AddActivity.class);
+                startActivity(it);
             }
 
             @Override
