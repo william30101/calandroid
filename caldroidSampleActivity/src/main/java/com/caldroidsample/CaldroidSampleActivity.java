@@ -108,8 +108,19 @@ public class CaldroidSampleActivity extends AppCompatActivity {
             public void onSelectDate(Date date, View view) {
                 Toast.makeText(getApplicationContext(), formatter.format(date),
                         Toast.LENGTH_SHORT).show();
+
+
+                Calendar cal = Calendar.getInstance();
+                ColorDrawable green = new ColorDrawable(Color.GREEN);
+
+                caldroidFragment.setBackgroundDrawableForDate(green, date);
+                caldroidFragment.refreshView();
+
                 Intent it = new Intent(CaldroidSampleActivity.this,AddActivity.class);
                 startActivity(it);
+
+
+
             }
 
             @Override
@@ -124,6 +135,12 @@ public class CaldroidSampleActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         "Long click " + formatter.format(date),
                         Toast.LENGTH_SHORT).show();
+
+                Calendar cal = Calendar.getInstance();
+                ColorDrawable white = new ColorDrawable(Color.WHITE);
+
+                caldroidFragment.setBackgroundDrawableForDate(white, date);
+                caldroidFragment.refreshView();
             }
 
             @Override
