@@ -119,7 +119,7 @@ public class CaldroidSampleActivity extends AppCompatActivity {
                 Intent it = new Intent(CaldroidSampleActivity.this,AddActivity.class);
                 startActivity(it);
 
-
+            
 
             }
 
