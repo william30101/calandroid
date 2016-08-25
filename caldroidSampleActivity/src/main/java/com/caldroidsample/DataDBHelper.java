@@ -12,7 +12,9 @@ public class DataDBHelper extends SQLiteOpenHelper {
 
     final static String DB_Name = "data.sqlite";
     final static  int VERSION = 1;
-    final static String CREATE_TABLE_SQL = "CREATE  TABLE main.student (_id INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL , name VARCHAR,addr VARCHAR, tel VARCHAR)";
+    final static String CREATE_TABLE_SQL = "CREATE  TABLE main.data (_id INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL ,date TEXT, title VARCHAR, content VARCHAR)";
+    //
+    //CREATE_TABLE_SQL = "CREATE  TABLE main.student (_id INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL , name VARCHAR,addr VARCHAR, tel VARCHAR)";
 
     public DataDBHelper(Context context)
     {
@@ -20,8 +22,8 @@ public class DataDBHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
-
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL(CREATE_TABLE_SQL);
     }
 
     @Override

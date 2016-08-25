@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -116,10 +117,24 @@ public class CaldroidSampleActivity extends AppCompatActivity {
                 caldroidFragment.setBackgroundDrawableForDate(green, date);
                 caldroidFragment.refreshView();
 
-                Intent it = new Intent(CaldroidSampleActivity.this,AddActivity.class);
-                startActivity(it);
 
-            
+                SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+                String clickdate = sDateFormat.format(date);
+                Log.d("test",clickdate);
+                //新增
+
+                Intent it = new Intent(CaldroidSampleActivity.this,AddActivity.class);
+
+                it.putExtra("date",clickdate);
+                startActivityForResult(it,100);
+
+                /*
+                //更新刪除
+                Intent it = new Intent(CaldroidSampleActivity.this,DetailActivity.class);
+
+                it.putExtra("date",clickdate);
+                startActivity(it);
+*/
 
             }
 
@@ -141,6 +156,14 @@ public class CaldroidSampleActivity extends AppCompatActivity {
 
                 caldroidFragment.setBackgroundDrawableForDate(white, date);
                 caldroidFragment.refreshView();
+
+
+                SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+                String clickdate2 = sDateFormat.format(date);
+                Intent it = new Intent(CaldroidSampleActivity.this,DetailActivity.class);
+
+                it.putExtra("date2",clickdate2);
+                startActivity(it);
             }
 
             @Override
