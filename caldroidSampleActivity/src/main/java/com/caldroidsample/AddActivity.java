@@ -1,6 +1,8 @@
 package com.caldroidsample;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -20,6 +23,7 @@ public class AddActivity extends AppCompatActivity {
 
     TextView tv3;
     EditText ed1,ed2;
+    long timelnMilliseconds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +82,33 @@ public class AddActivity extends AppCompatActivity {
 
                         DataDAO dao = new DataDAODBImpl(AddActivity.this);
                         dao.addData(new data(d, t, c));
+
+
+                        Intent alarmIntent = new Intent(AddActivity.this, MyAlarm.class);
+
+                        alarmIntent.putExtra("str_date",tv3.getText().toString());
+
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+                        try {
+                            Date sdate = sdf.parse(d);
+                            timelnMilliseconds = sdate.getTime();
+
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        long scTime = 24 * 60 * 60 * 1000;
+                        //long scTime = 2 * 60 * 1000;
+                        //long scTime = 10000;
+
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(AddActivity.this, 0, alarmIntent, 0);
+                        //long firstime = SystemClock.elapsedRealtime();
+                        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+                        alarmManager.set(AlarmManager.RTC_WAKEUP, timelnMilliseconds - scTime, pendingIntent);
+
+                        //alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, firstime, 10 * 1000, pendingIntent);
+
                         Toast.makeText(AddActivity.this,"新增成功",Toast.LENGTH_SHORT).show();
 
                         new Thread(){
@@ -85,7 +116,7 @@ public class AddActivity extends AppCompatActivity {
                             public void run() {
 
                                 try {
-                                    Thread.sleep(2000);
+                                    Thread.sleep(1000);
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }

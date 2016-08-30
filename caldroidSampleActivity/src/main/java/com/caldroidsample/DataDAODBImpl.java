@@ -79,4 +79,22 @@ public class DataDAODBImpl implements DataDAO {
         return mylist;
     }
 
+    @Override
+    public List checkData(data d) {
+        ArrayList<data> mylist = new ArrayList<>();
+
+        //rawQuery 用於查詢
+        //Cursor c = db.rawQuery("Select * from data where date>'2016/08/30'", null);
+        Cursor c = db.rawQuery("Select * from data where date>'" + d.date + "'", null);
+        if (c.moveToFirst())
+        {
+            do {
+                data a = new data(c.getString(1), c.getString(2), c.getString(3));
+                mylist.add(a);
+            } while (c.moveToNext());
+        }
+
+        return mylist;
+    }
+
 }

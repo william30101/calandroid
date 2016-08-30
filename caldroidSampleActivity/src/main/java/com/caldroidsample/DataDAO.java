@@ -11,4 +11,5 @@ public interface DataDAO {
     public void updateData(data d);
     public List getAllData();
     public List getData(data d);
+    public List checkData(data d);
 }

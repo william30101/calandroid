@@ -21,40 +21,17 @@ public class InviteService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        /*
-        String ns = Context.NOTIFICATION_SERVICE;
-        NotificationManager mNotificationManager = (NotificationManager) getSystemService(ns);
 
-        int icon = R.drawable.p1;
-        CharSequence tickerText = "New Invite!";
-        long when = System.currentTimeMillis();
-
-        Notification notification = new Notification(icon, tickerText, when);
-        notification.flags |= Notification.FLAG_AUTO_CANCEL;
-        notification.defaults |= Notification.DEFAULT_VIBRATE;
-
-        Context context = getApplicationContext();
-        CharSequence contentTitle = "Title";
-        CharSequence contentText = "Text";
-        Intent notificationIntent = new Intent(this, HomeActivity.class);
-        Bundle partyBundle = new Bundle();
-
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 1, notificationIntent, 0);
-
-        notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
-
-        int NOTIFICATION_ID = 1;
-
-        Log.d("NOTIFICATION_ID", "" + NOTIFICATION_ID);
-        mNotificationManager.notify(NOTIFICATION_ID, notification);
-        */
+        Bundle bData = intent.getExtras();
+        String str_date = bData.getString("str_date");
+        String str_date2 = bData.getString("str_date2");
 
         PendingIntent pi = PendingIntent.getActivity(this, 0, new Intent(this, HomeActivity.class),0);
         NotificationCompat.Builder builer = new NotificationCompat.Builder(this);
 
         builer.setTicker("Message");
-        builer.setContentTitle("Title");
-        builer.setContentText("Text");
+        builer.setContentTitle("Title " + str_date2);
+        builer.setContentText("Text "+ str_date);
         builer.setSmallIcon(R.drawable.p1);
         builer.setContentIntent(pi);
         builer.setAutoCancel(true);
@@ -62,5 +39,6 @@ public class InviteService extends IntentService {
         builer.setSound(uri);
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(123, builer.build());
+
     }
 }
