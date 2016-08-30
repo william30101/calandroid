@@ -64,7 +64,7 @@ public class AddActivity extends AppCompatActivity {
             else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(AddActivity.this);
                 builder.setTitle("新增資料");
-                builder.setIcon(android.R.drawable.ic_dialog_info);
+                builder.setIcon(android.R.drawable.ic_dialog_alert);
                 builder.setMessage("確定要新增資料?");
 
                 builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
@@ -86,7 +86,7 @@ public class AddActivity extends AppCompatActivity {
 
                         Intent alarmIntent = new Intent(AddActivity.this, MyAlarm.class);
 
-                        alarmIntent.putExtra("str_date",tv3.getText().toString());
+                        alarmIntent.putExtra("str_date",d);
 
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
                         try {

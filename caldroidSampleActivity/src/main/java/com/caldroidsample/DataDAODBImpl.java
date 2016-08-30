@@ -47,7 +47,7 @@ public class DataDAODBImpl implements DataDAO {
         ArrayList<data> mylist = new ArrayList<>();
 
         //rawQuery 用於查詢
-        Cursor c = db.rawQuery("Select * from data", null);
+        Cursor c = db.rawQuery("Select * From data order by date asc", null);
         if (c.moveToFirst())
         {
             do {
@@ -85,7 +85,7 @@ public class DataDAODBImpl implements DataDAO {
 
         //rawQuery 用於查詢
         //Cursor c = db.rawQuery("Select * from data where date>'2016/08/30'", null);
-        Cursor c = db.rawQuery("Select * from data where date>'" + d.date + "'", null);
+        Cursor c = db.rawQuery("Select * from data where date>'" + d.date + "' order by date asc", null);
         if (c.moveToFirst())
         {
             do {

@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Caldroid Sample</string>
+    <string name="app_name">小小筆記</string>
     <string name="customize">Customize</string>
-    <string name="show_dialog">Show Dialog</string>
-    <string name="undo">Undo</string>
     <string name="action_add">新增</string>
     <string name="action_update">更新</string>
     <string name="action_delete">刪除</string>

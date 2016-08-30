@@ -29,10 +29,16 @@ public class InviteService extends IntentService {
         PendingIntent pi = PendingIntent.getActivity(this, 0, new Intent(this, HomeActivity.class),0);
         NotificationCompat.Builder builer = new NotificationCompat.Builder(this);
 
-        builer.setTicker("Message");
-        builer.setContentTitle("Title " + str_date2);
-        builer.setContentText("Text "+ str_date);
-        builer.setSmallIcon(R.drawable.p1);
+        builer.setTicker("NoteBook Alerts");
+        if(str_date!="") {
+            builer.setContentTitle(str_date + " NoteBook Notification");
+        }
+        else
+        {
+            builer.setContentTitle("NoteBook Notification" + str_date2);
+        }
+        builer.setContentText("You have schedule tomorrow");
+        builer.setSmallIcon(R.drawable.ic_lightbulb_outline_black_36dp);
         builer.setContentIntent(pi);
         builer.setAutoCancel(true);
         Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);

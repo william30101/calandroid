@@ -17,7 +17,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="詳細內容"
         android:id="@+id/detail_textView1"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textColor="#b55656" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -29,7 +31,9 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="日期:"
-            android:id="@+id/detail_textView2" />
+            android:id="@+id/detail_textView2"
+            android:textStyle="bold"
+            android:textColor="#13abc9" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -49,7 +53,9 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="主旨:"
-            android:id="@+id/detail_textView4" />
+            android:id="@+id/detail_textView4"
+            android:textStyle="bold"
+            android:textColor="#13abc9" />
 
         <EditText
             android:layout_width="match_parent"
@@ -68,7 +74,9 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="內容:"
-            android:id="@+id/detail_textView5" />
+            android:id="@+id/detail_textView5"
+            android:textStyle="bold"
+            android:textColor="#13abc9" />
 
         <EditText
             android:layout_width="match_parent"
