@@ -71,11 +71,6 @@ public class AddActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        Intent it = new Intent();
-                        //String str ="success";
-                        //it.putExtra("putdata",str);
-                        setResult(RESULT_OK, it);
-
                         String d = tv3.getText().toString();
                         String t = ed1.getText().toString();
                         String c = ed2.getText().toString();
@@ -87,6 +82,11 @@ public class AddActivity extends AppCompatActivity {
                         Intent alarmIntent = new Intent(AddActivity.this, MyAlarm.class);
 
                         alarmIntent.putExtra("str_date",d);
+
+                        Intent it = new Intent();
+                        //String str ="success";
+                        it.putExtra("date",d);
+                        setResult(RESULT_OK, it);
 
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
                         try {
