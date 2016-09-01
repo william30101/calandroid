@@ -17,13 +17,14 @@ public class MyAlarm extends BroadcastReceiver {
 
             Log.d("Alarm Recieved!", "YAAAY");
             String str_date  = bData.getString("str_date");
-            String str_date2  = bData.getString("str_date2");
+            //String str_date2  = bData.getString("str_date2");
+            String msg = bData.getString("msg");
 
             Intent i = new Intent(context, InviteService.class);
             i.putExtra("str_date",str_date);
-            //i.addCategory("Date:" + str_date);
-            i.putExtra("str_date2",str_date2);
-            //i.addCategory("Date2:" + str_date2);
+            //i.putExtra("str_date2",str_date2);
+            //i.putExtra("msg",msg);
+
             context.startService(i);
 
     }
