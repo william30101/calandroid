@@ -30,14 +30,15 @@ public class CaldroidSampleActivity extends AppCompatActivity {
     private CaldroidFragment caldroidFragment;
     private CaldroidFragment dialogCaldroidFragment;
     private static int MODIFY_CAL = 100;
+    List<data> allDataList = new ArrayList<>();
 
     private void setCustomResourceForDates() {
 
         //抓db資料
         DataDAO dao = new DataDAODBImpl(CaldroidSampleActivity.this);
-        List<data> mylist = dao.getAllData();
+        allDataList = dao.getAllData();
 
-        for(data d : mylist)
+        for(data d : allDataList)
         {
             Log.d("test data",d.date + "," + d.title + "," + d.content);
 
@@ -48,25 +49,25 @@ public class CaldroidSampleActivity extends AppCompatActivity {
         }
 
 
-        Calendar cal = Calendar.getInstance();
+       // Calendar cal = Calendar.getInstance();
 
         // Min date is last 7 days
-        cal.add(Calendar.DATE, -7);
-        Date blueDate = cal.getTime();
+//        cal.add(Calendar.DATE, -7);
+//        Date blueDate = cal.getTime();
+//
+//        // Max date is next 7 days
+//        cal = Calendar.getInstance();
+//        cal.add(Calendar.DATE, 7);
+//        Date greenDate = cal.getTime();
 
-        // Max date is next 7 days
-        cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, 7);
-        Date greenDate = cal.getTime();
-
-        if (caldroidFragment != null) {
-            ColorDrawable blue = new ColorDrawable(getResources().getColor(R.color.blue));
-            ColorDrawable green = new ColorDrawable(Color.GREEN);
-            caldroidFragment.setBackgroundDrawableForDate(blue, blueDate);
-            caldroidFragment.setBackgroundDrawableForDate(green, greenDate);
-            caldroidFragment.setTextColorForDate(R.color.white, blueDate);
-            caldroidFragment.setTextColorForDate(R.color.white, greenDate);
-        }
+//        if (caldroidFragment != null) {
+//            ColorDrawable blue = new ColorDrawable(getResources().getColor(R.color.blue));
+//            ColorDrawable green = new ColorDrawable(Color.GREEN);
+////            caldroidFragment.setBackgroundDrawableForDate(blue, blueDate);
+////            caldroidFragment.setBackgroundDrawableForDate(green, greenDate);
+////            caldroidFragment.setTextColorForDate(R.color.white, blueDate);
+////            caldroidFragment.setTextColorForDate(R.color.white, greenDate);
+//        }
     }
 
     @Override
@@ -96,10 +97,10 @@ public class CaldroidSampleActivity extends AppCompatActivity {
         else {
             Bundle args = new Bundle();
             Calendar cal = Calendar.getInstance();
-            args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
-            args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
-            args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
-            args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR, true);
+//            args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
+//            args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
+            //args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
+          //  args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR, true);
 
             // Uncomment this to customize startDayOfWeek
             // args.putInt(CaldroidFragment.START_DAY_OF_WEEK,
@@ -132,20 +133,26 @@ public class CaldroidSampleActivity extends AppCompatActivity {
                 SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy/MM/dd");
                 String clickdate = sDateFormat.format(date);
                 Log.d("test",clickdate);
-                //新增
+                boolean foundFlag = false;
+                for (int i=0;i <allDataList.size() ; i++){
+                    if ( allDataList.get(i).date.contentEquals(clickdate)){
+                        foundFlag = true;
+                    }
+                }
 
-                Intent it = new Intent(CaldroidSampleActivity.this,AddActivity.class);
+                if (foundFlag){
+                    //Exist date object , jump Edit Page
+                    Intent it = new Intent(CaldroidSampleActivity.this,DetailActivity.class);
 
-                it.putExtra("date",clickdate);
-                startActivityForResult(it,MODIFY_CAL);
+                    it.putExtra("date2",clickdate);
+                    startActivity(it);
+                }else {
+                    //New date Record
+                    Intent it = new Intent(CaldroidSampleActivity.this, AddActivity.class);
 
-                /*
-                //更新刪除
-                Intent it = new Intent(CaldroidSampleActivity.this,DetailActivity.class);
-
-                it.putExtra("date",clickdate);
-                startActivity(it);
-*/
+                    it.putExtra("date", clickdate);
+                    startActivityForResult(it, MODIFY_CAL);
+                }
 
             }
 
@@ -162,20 +169,20 @@ public class CaldroidSampleActivity extends AppCompatActivity {
                         "Long click " + formatter.format(date),
                         Toast.LENGTH_SHORT).show();
 
-
-                Calendar cal = Calendar.getInstance();
-                ColorDrawable white = new ColorDrawable(Color.WHITE);
-
-                caldroidFragment.setBackgroundDrawableForDate(white, date);
-                caldroidFragment.refreshView();
-
-
-                SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy/MM/dd");
-                String clickdate2 = sDateFormat.format(date);
-                Intent it = new Intent(CaldroidSampleActivity.this,DetailActivity.class);
-
-                it.putExtra("date2",clickdate2);
-                startActivity(it);
+//
+//                Calendar cal = Calendar.getInstance();
+//                ColorDrawable white = new ColorDrawable(Color.WHITE);
+//
+//                caldroidFragment.setBackgroundDrawableForDate(white, date);
+//                caldroidFragment.refreshView();
+//
+//
+//                SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+//                String clickdate2 = sDateFormat.format(date);
+//                Intent it = new Intent(CaldroidSampleActivity.this,DetailActivity.class);
+//
+//                it.putExtra("date2",clickdate2);
+//                startActivity(it);
             }
 
             @Override
@@ -230,6 +237,10 @@ public class CaldroidSampleActivity extends AppCompatActivity {
                 SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy/MM/dd");
                 ParsePosition pos = new ParsePosition(0);
                 Date stringDate = sDateFormat.parse(retDate, pos);
+
+                //Add to list
+                data newRecord = new data(retDate);
+                allDataList.add(newRecord);
 
                 fillColorInCal(stringDate);
             }else{
