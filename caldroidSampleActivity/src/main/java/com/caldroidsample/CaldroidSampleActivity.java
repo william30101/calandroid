@@ -29,7 +29,8 @@ public class CaldroidSampleActivity extends AppCompatActivity {
     private boolean undo = false;
     private CaldroidFragment caldroidFragment;
     private CaldroidFragment dialogCaldroidFragment;
-    private static int MODIFY_CAL = 100;
+    private static int ADD_CAL = 100;
+    private static int MODIFY_CAL = 101;
     List<data> allDataList = new ArrayList<>();
 
     private void setCustomResourceForDates() {
@@ -145,13 +146,14 @@ public class CaldroidSampleActivity extends AppCompatActivity {
                     Intent it = new Intent(CaldroidSampleActivity.this,DetailActivity.class);
 
                     it.putExtra("date2",clickdate);
-                    startActivity(it);
+                    //startActivity(it);
+                    startActivityForResult(it, MODIFY_CAL);
                 }else {
                     //New date Record
                     Intent it = new Intent(CaldroidSampleActivity.this, AddActivity.class);
 
                     it.putExtra("date", clickdate);
-                    startActivityForResult(it, MODIFY_CAL);
+                    startActivityForResult(it, ADD_CAL);
                 }
 
             }
@@ -228,10 +230,18 @@ public class CaldroidSampleActivity extends AppCompatActivity {
         caldroidFragment.refreshView();
     }
 
+    private void removeColorInCal(Date date){
+
+        ColorDrawable white = new ColorDrawable(Color.WHITE);
+
+        caldroidFragment.setBackgroundDrawableForDate(white, date);
+        caldroidFragment.refreshView();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
        // super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == MODIFY_CAL) {
+        if (requestCode == ADD_CAL) {
             if(resultCode == RESULT_OK){
                 String retDate=data.getStringExtra("date");
                 SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -247,6 +257,34 @@ public class CaldroidSampleActivity extends AppCompatActivity {
                 // Do Nothing now.
             }
 
+        }else if (requestCode == MODIFY_CAL){
+            if(resultCode == RESULT_OK){
+
+
+
+                String retDate=data.getStringExtra("del_date");
+                SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+
+                if (retDate != null){
+                    ParsePosition pos = new ParsePosition(0);
+                    Date stringDate = sDateFormat.parse(retDate, pos);
+
+
+                    // Remove from list
+                    for (int i=0; i< allDataList.size(); i++){
+                        if (allDataList.get(i).date.contentEquals(retDate)){
+                            allDataList.remove(i);
+                        }
+                    }
+
+                    removeColorInCal(stringDate);
+                }
+
+
+                //fillColorInCal(stringDate);
+            }else{
+                // Do Nothing now.
+            }
         }
     }
 }
