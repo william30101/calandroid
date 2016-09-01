@@ -119,7 +119,8 @@ public class DetailActivity extends AppCompatActivity {
 
             if(ed1.getText().toString().equals("") || ed2.getText().toString().equals(""))
             {
-                Toast.makeText(DetailActivity.this,"主旨或內容不能為空值",Toast.LENGTH_SHORT).show();
+                finish();
+                //Toast.makeText(DetailActivity.this,"主旨或內容沒有填入資料",Toast.LENGTH_SHORT).show();
             }
             else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(DetailActivity.this);

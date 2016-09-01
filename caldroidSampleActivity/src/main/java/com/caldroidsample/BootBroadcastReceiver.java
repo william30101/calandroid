@@ -42,7 +42,7 @@ public class BootBroadcastReceiver extends BroadcastReceiver {
             for(data d : mylist)
             {
                 Intent alarmIntent = new Intent(context, MyAlarm.class);
-                alarmIntent.putExtra("str_date",d.date);
+                //alarmIntent.putExtra("str_date2",d.date);
 
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
                 try {

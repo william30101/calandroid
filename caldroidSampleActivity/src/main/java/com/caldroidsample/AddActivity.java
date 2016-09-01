@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class AddActivity extends AppCompatActivity {
 
@@ -83,29 +85,35 @@ public class AddActivity extends AppCompatActivity {
                         DataDAO dao = new DataDAODBImpl(AddActivity.this);
                         dao.addData(new data(d, t, c));
 
+                        SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+                        String tdate = sDateFormat.format(new Date());
+                        List<data> mylist = dao.checkData(new data(tdate));
 
-                        Intent alarmIntent = new Intent(AddActivity.this, MyAlarm.class);
+                       for(data a : mylist) {
+                            Intent alarmIntent = new Intent(AddActivity.this, MyAlarm.class);
+                            Log.d("test",mylist.toString());
+                            //alarmIntent.putExtra("str_date",d);
+                            //alarmIntent.addCategory(d);
 
-                        alarmIntent.putExtra("str_date",d);
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+                            try {
+                                Date sdate = sdf.parse(a.date);
+                                timelnMilliseconds = sdate.getTime();
 
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-                        try {
-                            Date sdate = sdf.parse(d);
-                            timelnMilliseconds = sdate.getTime();
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
 
-                        } catch (ParseException e) {
-                            e.printStackTrace();
+                            long scTime = 24 * 60 * 60 * 1000;
+                            //long scTime = 2 * 60 * 1000;
+                            //long scTime = 10000;
+
+                            PendingIntent pendingIntent = PendingIntent.getBroadcast(AddActivity.this, 0, alarmIntent, 0);
+                            //long firstime = SystemClock.elapsedRealtime();
+                            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+                            alarmManager.set(AlarmManager.RTC_WAKEUP, timelnMilliseconds - scTime, pendingIntent);
                         }
-
-                        long scTime = 24 * 60 * 60 * 1000;
-                        //long scTime = 2 * 60 * 1000;
-                        //long scTime = 10000;
-
-                        PendingIntent pendingIntent = PendingIntent.getBroadcast(AddActivity.this, 0, alarmIntent, 0);
-                        //long firstime = SystemClock.elapsedRealtime();
-                        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-                        alarmManager.set(AlarmManager.RTC_WAKEUP, timelnMilliseconds - scTime, pendingIntent);
 
                         //alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, firstime, 10 * 1000, pendingIntent);
 

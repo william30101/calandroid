@@ -8,7 +8,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.caldroidsample.DetailActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/bg2">
 
 
     <TextView
@@ -19,7 +20,7 @@
         android:id="@+id/detail_textView1"
         android:layout_gravity="center_horizontal"
         android:textStyle="bold"
-        android:textColor="#b55656" />
+        android:textColor="#0c4b0c" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -33,14 +34,15 @@
             android:text="日期:"
             android:id="@+id/detail_textView2"
             android:textStyle="bold"
-            android:textColor="#13abc9" />
+            android:textColor="#000000" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Large Text"
-            android:id="@+id/detail_textView3" />
+            android:id="@+id/detail_textView3"
+            android:textColor="#000000" />
     </LinearLayout>
 
     <LinearLayout
@@ -55,13 +57,15 @@
             android:text="主旨:"
             android:id="@+id/detail_textView4"
             android:textStyle="bold"
-            android:textColor="#13abc9" />
+            android:textColor="#000000" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/detail_editText1"
-            android:hint="主旨..." />
+            android:hint="主旨..."
+            android:textColor="#000000"
+            android:textColorHint="#696969" />
     </LinearLayout>
 
     <LinearLayout
@@ -76,13 +80,15 @@
             android:text="內容:"
             android:id="@+id/detail_textView5"
             android:textStyle="bold"
-            android:textColor="#13abc9" />
+            android:textColor="#000000" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/detail_editText2"
             android:hint="請輸入內容..."
-            android:gravity="top" />
+            android:gravity="top"
+            android:textColor="#000000"
+            android:textColorHint="#696969" />
     </LinearLayout>
 </LinearLayout>

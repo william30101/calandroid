@@ -13,7 +13,7 @@ import android.view.WindowManager;
 import java.util.Calendar;
 import java.util.Date;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -13,15 +13,15 @@ public class MyAlarm extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-            Bundle bData = intent.getExtras();
+            //Bundle bData = intent.getExtras();
 
             Log.d("Alarm Recieved!", "YAAAY");
-            String str_date  = bData.getString("str_date");
-            String str_date2  = bData.getString("str_date2");
+            //String str_date  = bData.getString("str_date");
+            //String str_date2  = bData.getString("str_date2");
 
             Intent i = new Intent(context, InviteService.class);
-            i.putExtra("str_date",str_date);
-            i.putExtra("str_date2",str_date2);
+            //i.putExtra("str_date",str_date);
+            //i.putExtra("str_date2",str_date2);
             context.startService(i);
 
     }
