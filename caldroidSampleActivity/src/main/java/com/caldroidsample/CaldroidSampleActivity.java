@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -28,6 +29,7 @@ public class CaldroidSampleActivity extends AppCompatActivity {
     private boolean undo = false;
     private CaldroidFragment caldroidFragment;
     private CaldroidFragment dialogCaldroidFragment;
+    private static int MODIFY_CAL = 100;
 
     private void setCustomResourceForDates() {
 
@@ -38,6 +40,11 @@ public class CaldroidSampleActivity extends AppCompatActivity {
         for(data d : mylist)
         {
             Log.d("test data",d.date + "," + d.title + "," + d.content);
+
+            SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+            ParsePosition pos = new ParsePosition(0);
+            Date eventDate = sDateFormat.parse(d.date, pos);
+            fillColorInCal(eventDate);
         }
 
 
@@ -122,14 +129,6 @@ public class CaldroidSampleActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), formatter.format(date),
                         Toast.LENGTH_SHORT).show();
 
-
-                Calendar cal = Calendar.getInstance();
-                ColorDrawable green = new ColorDrawable(Color.GREEN);
-
-                caldroidFragment.setBackgroundDrawableForDate(green, date);
-                caldroidFragment.refreshView();
-
-
                 SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy/MM/dd");
                 String clickdate = sDateFormat.format(date);
                 Log.d("test",clickdate);
@@ -138,7 +137,7 @@ public class CaldroidSampleActivity extends AppCompatActivity {
                 Intent it = new Intent(CaldroidSampleActivity.this,AddActivity.class);
 
                 it.putExtra("date",clickdate);
-                startActivityForResult(it,100);
+                startActivityForResult(it,MODIFY_CAL);
 
                 /*
                 //更新刪除
@@ -214,4 +213,29 @@ public class CaldroidSampleActivity extends AppCompatActivity {
         }
     }
 
+    private void fillColorInCal(Date date){
+
+        ColorDrawable green = new ColorDrawable(Color.GREEN);
+
+        caldroidFragment.setBackgroundDrawableForDate(green, date);
+        caldroidFragment.refreshView();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+       // super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == MODIFY_CAL) {
+            if(resultCode == RESULT_OK){
+                String retDate=data.getStringExtra("date");
+                SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+                ParsePosition pos = new ParsePosition(0);
+                Date stringDate = sDateFormat.parse(retDate, pos);
+
+                fillColorInCal(stringDate);
+            }else{
+                // Do Nothing now.
+            }
+
+        }
+    }
 }

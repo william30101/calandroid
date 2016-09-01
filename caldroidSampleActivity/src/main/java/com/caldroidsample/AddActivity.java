@@ -73,11 +73,6 @@ public class AddActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        Intent it = new Intent();
-                        //String str ="success";
-                        //it.putExtra("putdata",str);
-                        setResult(RESULT_OK, it);
-
                         String d = tv3.getText().toString();
                         String t = ed1.getText().toString();
                         String c = ed2.getText().toString();
@@ -103,6 +98,12 @@ public class AddActivity extends AppCompatActivity {
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
+
+                        Intent it = new Intent();
+                        //String str ="success";
+                        it.putExtra("date",d);
+                        setResult(RESULT_OK, it);
+
 
                             long scTime = 24 * 60 * 60 * 1000;
                             //long scTime = 2 * 60 * 1000;
