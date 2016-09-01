@@ -80,24 +80,25 @@ public class AddActivity extends AppCompatActivity {
                         DataDAO dao = new DataDAODBImpl(AddActivity.this);
                         dao.addData(new data(d, t, c));
 
-                        SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy/MM/dd");
-                        String tdate = sDateFormat.format(new Date());
-                        List<data> mylist = dao.checkData(new data(tdate));
+                       // SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+                        //String tdate = sDateFormat.format(new Date());
+                        //List<data> mylist = dao.checkData(new data(tdate));
 
-                       for(data a : mylist) {
-                            Intent alarmIntent = new Intent(AddActivity.this, MyAlarm.class);
-                            Log.d("test",mylist.toString());
+                       //for(data a : mylist) {
+                        Intent alarmIntent = new Intent(AddActivity.this, MyAlarm.class);
+                        alarmIntent.addCategory(d);
+                        //Log.d("test",mylist.toString());
                             //alarmIntent.putExtra("str_date",d);
                             //alarmIntent.addCategory(d);
 
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-                            try {
-                                Date sdate = sdf.parse(a.date);
-                                timelnMilliseconds = sdate.getTime();
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+                        try {
+                            Date sdate = sdf.parse(d);
+                            timelnMilliseconds = sdate.getTime();
 
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
 
                         Intent it = new Intent();
                         //String str ="success";
@@ -105,16 +106,16 @@ public class AddActivity extends AppCompatActivity {
                         setResult(RESULT_OK, it);
 
 
-                            long scTime = 24 * 60 * 60 * 1000;
-                            //long scTime = 2 * 60 * 1000;
-                            //long scTime = 10000;
+                        long scTime = 24 * 60 * 60 * 1000;
+                        //long scTime = 2 * 60 * 1000;
+                        //long scTime = 10000;
 
-                            PendingIntent pendingIntent = PendingIntent.getBroadcast(AddActivity.this, 0, alarmIntent, 0);
-                            //long firstime = SystemClock.elapsedRealtime();
-                            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(AddActivity.this, 0, alarmIntent, 0);
+                        //long firstime = SystemClock.elapsedRealtime();
+                        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
-                            alarmManager.set(AlarmManager.RTC_WAKEUP, timelnMilliseconds - scTime, pendingIntent);
-                        }
+                        alarmManager.set(AlarmManager.RTC_WAKEUP, timelnMilliseconds - scTime, pendingIntent);
+                       // }
 
                         //alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, firstime, 10 * 1000, pendingIntent);
 
