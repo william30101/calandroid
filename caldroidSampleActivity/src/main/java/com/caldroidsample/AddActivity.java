@@ -88,8 +88,8 @@ public class AddActivity extends AppCompatActivity {
                         Intent alarmIntent = new Intent(AddActivity.this, MyAlarm.class);
                         alarmIntent.addCategory(d);
                         //Log.d("test",mylist.toString());
-                            //alarmIntent.putExtra("str_date",d);
-                            //alarmIntent.addCategory(d);
+                        alarmIntent.putExtra("str_date",d);
+                            //alarmIntent.addCategory("Date:" + d);
 
                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
                         try {

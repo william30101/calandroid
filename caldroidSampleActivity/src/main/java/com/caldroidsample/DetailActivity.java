@@ -134,6 +134,13 @@ public class DetailActivity extends AppCompatActivity {
 
                         DataDAO dao = new DataDAODBImpl(DetailActivity.this);
                         dao.delData(new data(tv3.getText().toString()));
+
+                        Intent it = new Intent();
+                        //String str ="success";
+                        it.putExtra("del_date",tv3.getText().toString());
+                        setResult(RESULT_OK, it);
+
+
                         Toast.makeText(DetailActivity.this, "刪除成功", Toast.LENGTH_SHORT).show();
 
                         new Thread(){

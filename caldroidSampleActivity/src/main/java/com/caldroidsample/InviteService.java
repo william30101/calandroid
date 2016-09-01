@@ -22,15 +22,22 @@ public class InviteService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
-        //Bundle bData = intent.getExtras();
-        //String str_date = bData.getString("str_date");
-        //String str_date2 = bData.getString("str_date2");
+        Bundle bData = intent.getExtras();
+        String str_date = bData.getString("str_date");
+        String str_date2 = bData.getString("str_date2");
 
         PendingIntent pi = PendingIntent.getActivity(this, 0, new Intent(this, CaldroidSampleActivity.class),0);
         NotificationCompat.Builder builer = new NotificationCompat.Builder(this);
 
         builer.setTicker("小小筆記 Alerts");
-        builer.setContentTitle("小小筆記通知");
+        if(str_date!="")
+        {
+            builer.setContentTitle(str_date+ " 小小筆記通知");
+        }
+        else
+        {
+            builer.setContentTitle(str_date2+ " 小小筆記通知");
+        }
         builer.setContentText("提醒您!注意您的Schedule");
         builer.setSmallIcon(R.drawable.not_36x36);
         builer.setContentIntent(pi);
